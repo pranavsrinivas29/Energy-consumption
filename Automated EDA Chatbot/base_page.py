@@ -27,24 +27,39 @@ class BaseAnalysisPage:
 
         return df_data, df_stats_cleaned
 
+    def show_overview(self, df_data, df_stats_cleaned):
+        """Displays dataset overview and summary statistics."""
+        st.subheader(f"📋 AI-Generated EDA Summary ({self.title})")
+        #ai_summary = generate_nlp_summary(df_stats_cleaned.to_string())
+        #st.write(ai_summary)
+
+        # Raw Data Overview
+        st.subheader(f"📊 Raw Dataset Overview ({self.title})")
+        st.write(df_data.head())
+
+        # Summary Statistics
+        st.subheader(f"📈 Summary Statistics ({self.title})")
+        st.dataframe(df_stats_cleaned, height=300, width=1000)
+
+    def show_analysis(self, df_data):
+        """Placeholder function. Child classes will override this."""
+        st.subheader("⚠️ No analysis available")
+        st.write("This page does not have specific plots.")
+
     def show_page(self):
-        """Displays the analysis page."""
+        """Displays the analysis page with tabs for Overview & Analysis."""
         st.title(self.title)
 
         df_data, df_stats_cleaned = self.load_data()
+        if df_data is None:
+            return
 
-        if df_data is not None:
-            # Generate AI Summary based on cleaned statistics
-            #ai_summary = generate_nlp_summary(df_stats_cleaned.to_string())
+        # Create Tabs
+        tab_overview, tab_analysis = st.tabs(["📊 Overview", "📈 Analysis"])
 
-            # Display AI-generated insights
-            st.subheader(f"📋 AI-Generated EDA Summary ({self.title})")
-            st.write("")
+        with tab_overview:
+            self.show_overview(df_data, df_stats_cleaned)  # ✅ Overview is now inside the tab
 
-            # Display raw data overview
-            st.subheader(f"📊 Raw Dataset Overview ({self.title})")
-            st.write(df_data.head())
+        with tab_analysis:
+            self.show_analysis(df_data)  # ✅ Child class will override this
 
-            # Display precomputed summary statistics (Cleaned)
-            st.subheader(f"📈 Summary Statistics ({self.title})")
-            st.dataframe(df_stats_cleaned, height=400, width=1000)

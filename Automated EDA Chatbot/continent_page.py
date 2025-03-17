@@ -9,7 +9,7 @@ class ContinentPage(BaseAnalysisPage):
                          "Continent_Consumption_TWH.csv", 
                          "EDA_summary_continent.csv")
 
-    def show_interactive_plot(self, df_data):
+    def show_analysis(self, df_data):
         st.subheader("📊 Interactive Data Visualization")
 
         # Ensure 'Year' is treated as a column (not an index)
@@ -37,13 +37,7 @@ class ContinentPage(BaseAnalysisPage):
                       markers=True)
 
         st.plotly_chart(fig, use_container_width=True)
-    def show_page(self):
-        """Displays the analysis page with an interactive plot."""
-        super().show_page()  # Display the base EDA summary
-
-        df_data, _ = self.load_data()
-        if df_data is not None:
-            self.show_interactive_plot(df_data)  # Show interactive plot
+    
             
 def show_continent_page():
     page = ContinentPage()

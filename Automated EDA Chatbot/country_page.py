@@ -9,7 +9,7 @@ class CountryPage(BaseAnalysisPage):
                          "Country_Consumption_TWH.csv", 
                          "EDA_summary_country.csv")
 
-    def show_interactive_plot(self, df_data):
+    def show_analysis(self, df_data):
         """Displays an interactive Plotly chart where the user selects X & Y axes."""
 
         st.subheader("📊 Interactive Data Visualization")
@@ -41,13 +41,7 @@ class CountryPage(BaseAnalysisPage):
 
         st.plotly_chart(fig, use_container_width=True)
 
-    def show_page(self):
-        """Displays the analysis page with an interactive plot."""
-        super().show_page()  # Display the base EDA summary
-
-        df_data, _ = self.load_data()
-        if df_data is not None:
-            self.show_interactive_plot(df_data)  # Show interactive plot
+    
 def show_country_page():
     page = CountryPage()
     page.show_page()
