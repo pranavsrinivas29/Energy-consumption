@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import os
 from eda_analysis import automated_eda
-from ai_summary import generate_nlp_summary
+#from ai_summary import generate_plot_summary
 
 class BaseAnalysisPage:
     def __init__(self, title, data_file, stats_file):
